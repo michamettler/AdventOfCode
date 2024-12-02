@@ -27,7 +27,7 @@ for line in locations:
                 error = True
                 break
             else:
-                if i + 1 == len(levels) - 1:  # last element, break because one single bad level
+                if i + 1 == len(levels) - 1:  # last element, break because one single bad level is allowed
                     break
                 else:
                     if isRangeValid(levels[i], levels[i + 2]) and isOrderValid(levels[i], levels[i + 2], increasing):
