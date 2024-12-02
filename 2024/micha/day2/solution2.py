@@ -1,4 +1,4 @@
-with open('testInput.txt') as file:
+with open('input.txt') as file:
     locations = file.readlines()
 
 
