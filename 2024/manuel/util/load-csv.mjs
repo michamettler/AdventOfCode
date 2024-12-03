@@ -21,6 +21,14 @@ export function readLines(filePath) {
     });
 }
 
+export function readFile(filePath) {
+    return new Promise((resolve, reject) => {
+        fs.readFile(filePath, (err, data) => {
+            if (err) reject(err);
+            resolve(data.toString())
+        });
+    });
+}
 export function readInts(string, seperator) {
     return string.split(seperator).map((item) => parseInt(item));
 }
