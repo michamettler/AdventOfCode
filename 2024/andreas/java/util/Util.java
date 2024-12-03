@@ -27,4 +27,12 @@ public class Util {
         }
         return res;
     }
+
+    public static Integer tryParse(String s) {
+        try {
+            return Integer.parseInt(s);
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
 }
