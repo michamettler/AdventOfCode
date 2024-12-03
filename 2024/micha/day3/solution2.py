@@ -7,14 +7,13 @@ memory = 'do()'
 for line in locations:
     memory += line.strip()
 
-instructions = re.findall(r"(do\(\)|don't\(\))(.*?)(?=do\(\)|don't\(\)|$)", memory)
+instructions = re.findall(r"(do\(\))(.*?)(?=do\(\)|don't\(\)|$)", memory)
 
 result = 0
 for instr in instructions:
-    if instr[0] == 'do()':
-        muls = re.findall(r"mul\(\d{0,3}\,\d{0,3}\)", instr[1])
-        for mul in muls:
-            clean = mul.replace('mul(', '').replace(')', '')
-            nums = clean.split(',')
-            result += int(nums[0]) * int(nums[1])
+    muls = re.findall(r"mul\(\d{0,3}\,\d{0,3}\)", instr[1])
+    for mul in muls:
+        clean = mul.replace('mul(', '').replace(')', '')
+        nums = clean.split(',')
+        result += int(nums[0]) * int(nums[1])
 print(result)
