@@ -12,9 +12,9 @@ instructions = re.findall(r"(do\(\)|don't\(\))(.*?)(?=do\(\)|don't\(\)|$)", memo
 result = 0
 for instr in instructions:
     if instr[0] == 'do()':
-        splitInstr = re.findall(r"mul\(\d{0,3}\,\d{0,3}\)", instr[1])
-        for split in splitInstr:
-            clean = split.replace('mul(', '').replace(')', '')
+        muls = re.findall(r"mul\(\d{0,3}\,\d{0,3}\)", instr[1])
+        for mul in muls:
+            clean = mul.replace('mul(', '').replace(')', '')
             nums = clean.split(',')
             result += int(nums[0]) * int(nums[1])
 print(result)
