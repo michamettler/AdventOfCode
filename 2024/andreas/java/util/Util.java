@@ -1,9 +1,18 @@
 package util;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Util {
 
+    public static <K, V> void putOrAdd(Map<K, List<V>> map, K k, V v) {
+        if (map.containsKey(k)) {
+            map.get(k).add(v);
+        } else {
+            map.put(k, new ArrayList<>(List.of(v)));
+        }
+    }
     public static long[][] asMatrix(List<String> input) {
         long[][] res = new long[input.size()][];
         for (int i = 0; i < input.size(); i++) {

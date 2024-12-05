@@ -6,8 +6,9 @@ import java.util.Scanner;
 
 public class InputReader {
 
+    static Scanner sc = new Scanner(System.in);
+
     public static List<String> readInput() {
-        Scanner sc = new Scanner(System.in);
         List<String> result = new ArrayList<>();
         while (true) {
             String line = sc.nextLine();
