@@ -1,4 +1,4 @@
-import { neighbors, readGrid } from './util/load-csv.mjs';
+import { neighbors, readGrid } from '../util/load-csv.mjs';
 
 
 

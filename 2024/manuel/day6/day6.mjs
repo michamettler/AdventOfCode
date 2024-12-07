@@ -1,4 +1,4 @@
-import { neighbors, readFile, readGrid, readInts, readLines } from './util/load-csv.mjs';
+import { neighbors, readFile, readGrid, readInts, readLines } from '../util/load-csv.mjs';
 
 
 
@@ -9,6 +9,8 @@ import { neighbors, readFile, readGrid, readInts, readLines } from './util/load-
     console.log(quiz2(input))
 
 })();
+
+
 function testPath(input) {
     const map = input.split("\n").map(line => line.split(""));
     const startY = map.findIndex(line => line.includes("^"));

@@ -1,4 +1,4 @@
-import { neighbors, readFile, readGrid, readInts, readLines } from './util/load-csv.mjs';
+import { neighbors, readFile, readGrid, readInts, readLines } from '../util/load-csv.mjs';
 
 
 
