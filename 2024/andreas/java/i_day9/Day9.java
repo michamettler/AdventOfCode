@@ -23,11 +23,10 @@ public class Day9 {
 
         @Override
         public String toString() {
-            return "Block{" +
-                    "isFree=" + isFree +
-                    ", amount=" + amount +
-                    ", id=" + id +
-                    '}';
+            if (isFree) {
+                return ".".repeat(amount);
+            }
+            return ("" + id).repeat(amount);
         }
     }
 
@@ -121,33 +120,39 @@ public class Day9 {
                     ll.remove(headPointer);
                     ll.insert(prev, next, new Block(false, backPointer.val.amount, backPointer.val.id));
                     ll.insert(prev.next, next, new Block(true, headPointer.val.amount - backPointer.val.amount, -1));
-                    backPointer = backPointer.prev;
-                    ll.remove(backPointer.next);
-                    if (backPointer.val.isFree && backPointer.next != null && backPointer.next.val.isFree) {
+                    backPointer.val.isFree = true;
+                    if (backPointer.next != null && backPointer.next.val.isFree) {
                         // do coalescing
                         backPointer.val.amount += backPointer.next.val.amount;
                         ll.remove(backPointer.next);
+                    }
+                    if (backPointer.prev != null && backPointer.prev.val.isFree) {
+                        // do coalescing
+                        backPointer.val.amount += backPointer.prev.val.amount;
+                        ll.remove(backPointer.prev);
                     }
                     break;
                 }
                 headPointer = headPointer.next;
             }
+            backPointer = backPointer.prev;
         }
 
         long res = 0;
         long c = 0;
         LLNode<Block> iter = ll.head;
         while (iter != null) {
-            if (!iter.val.isFree) {
-                res += c * iter.val.id;
+            for (int i = 0; i < iter.val.amount; i++) {
+                if (!iter.val.isFree) {
+                    res += c * iter.val.id;
+                }
+                c++;
             }
-            c++;
             iter = iter.next;
         }
 
         Block[] ref = new Block[ll.size];
         LL.asArray(ll, ref);
-        System.out.println(Arrays.toString(ref));
         System.out.println(res);
     }
 }

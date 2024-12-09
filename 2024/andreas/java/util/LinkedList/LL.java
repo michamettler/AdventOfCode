@@ -32,9 +32,13 @@ public class LL<T> {
         n.next = next;
         if (prev == null) {
             head = n;
+        } else {
+            prev.next = n;
         }
         if (next == null) {
             tail = n;
+        } else {
+            next.prev = n;
         }
         size++;
     }
