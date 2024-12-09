@@ -1,6 +1,8 @@
 package i_day9;
 
 import util.InputReader;
+import util.LinkedList.LL;
+import util.LinkedList.LLNode;
 import util.Util;
 
 import java.util.Arrays;
@@ -8,8 +10,29 @@ import java.util.List;
 
 public class Day9 {
 
+    private static class Block {
+        public boolean isFree;
+        public int amount;
+        public int id;
+
+        public Block(boolean isFree, int amount, int id) {
+            this.isFree = isFree;
+            this.amount = amount;
+            this.id = id;
+        }
+
+        @Override
+        public String toString() {
+            return "Block{" +
+                    "isFree=" + isFree +
+                    ", amount=" + amount +
+                    ", id=" + id +
+                    '}';
+        }
+    }
+
     public static void main(String[] args) {
-        part1();
+        part2();
     }
 
     public static void part1() {
@@ -67,6 +90,64 @@ public class Day9 {
             res += (long)map[i] * i;
         }
 
+        System.out.println(res);
+    }
+
+    public static void part2() {
+        List<String> input = InputReader.readInput();
+        if (input.size() != 1) {
+            throw new RuntimeException("wrong input format");
+        }
+
+        int[] in = Util.toSingleDigitIntArray(input.get(0));
+        LL<Block> ll = new LL<>();
+        for (int i = 0; i < in.length; i++) {
+            ll.append(new Block(i % 2 == 1, in[i], i / 2));
+        }
+
+        LLNode<Block> backPointer = ll.tail;
+        while (!backPointer.equals(ll.head)) {
+            if (backPointer.val.isFree) {
+                backPointer = backPointer.prev;
+                continue;
+            }
+            // for each element from the back try to insert it somewhere before (try to insert it in some free part)
+            LLNode<Block> headPointer = ll.head;
+            while (!headPointer.equals(backPointer)) {
+                if (headPointer.val.isFree && headPointer.val.amount >= backPointer.val.amount) {
+                    // Has enough space
+                    LLNode<Block> prev = headPointer.prev;
+                    LLNode<Block> next = headPointer.next;
+                    ll.remove(headPointer);
+                    ll.insert(prev, next, new Block(false, backPointer.val.amount, backPointer.val.id));
+                    ll.insert(prev.next, next, new Block(true, headPointer.val.amount - backPointer.val.amount, -1));
+                    backPointer = backPointer.prev;
+                    ll.remove(backPointer.next);
+                    if (backPointer.val.isFree && backPointer.next != null && backPointer.next.val.isFree) {
+                        // do coalescing
+                        backPointer.val.amount += backPointer.next.val.amount;
+                        ll.remove(backPointer.next);
+                    }
+                    break;
+                }
+                headPointer = headPointer.next;
+            }
+        }
+
+        long res = 0;
+        long c = 0;
+        LLNode<Block> iter = ll.head;
+        while (iter != null) {
+            if (!iter.val.isFree) {
+                res += c * iter.val.id;
+            }
+            c++;
+            iter = iter.next;
+        }
+
+        Block[] ref = new Block[ll.size];
+        LL.asArray(ll, ref);
+        System.out.println(Arrays.toString(ref));
         System.out.println(res);
     }
 }
