@@ -64,4 +64,12 @@ public class Util {
             System.out.println();
         }
     }
+
+    public static int[] toSingleDigitIntArray(String s) {
+        int[] arr = new int[s.length()];
+        for (int i = 0; i < s.length(); i++) {
+            arr[i] = (int) (s.charAt(i) - '0');
+        }
+        return arr;
+    }
 }
