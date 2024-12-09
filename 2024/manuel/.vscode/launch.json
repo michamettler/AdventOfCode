@@ -24,6 +24,37 @@
             ],
             "program": "${workspaceFolder}/day7/day7.mjs",
             "cwd": "${workspaceFolder}/day7"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "day 8",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/day8/day8.mjs",
+            "cwd": "${workspaceFolder}/day8"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "day 9",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/day9/day9.mjs",
+            "cwd": "${workspaceFolder}/day9"
+        }
+        ,
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "day 10",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/day10/day10.mjs",
+            "cwd": "${workspaceFolder}/day10"
         }
     ]
 }
