@@ -80,12 +80,12 @@ export function in_bounds(grid, x, y) {
 export function neighbors(grid, x, y, diagonals = false, onlyDiagonals = false) {
     const directions = []
     if (!onlyDiagonals) {
-        directions.push([
+        directions.push(
             [0, -1], // Up
             [-1, 0], // Left
             [1, 0],  // Right
             [0, 1],  // Down
-        ]);
+        );
     }
 
     if (diagonals) {
@@ -101,7 +101,8 @@ export function neighbors(grid, x, y, diagonals = false, onlyDiagonals = false) 
     for (const [dx, dy] of directions) {
         const nx = x + dx;
         const ny = y + dy;
-        if (nx >= 0 && nx < grid.length && ny >= 0 && ny < grid[0].length) {
+
+        if (ny >= 0 && ny < grid.length && nx >= 0 && nx < grid[0].length) {
             result.push([nx, ny]);
         }
     }
