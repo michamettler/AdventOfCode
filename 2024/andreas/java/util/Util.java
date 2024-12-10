@@ -25,6 +25,20 @@ public class Util {
         return res;
     }
 
+    public static int[][] asSingleDigitMatrix(List<String> input) {
+        int[][] res = new int[input.size()][input.get(0).length()];
+        for (int i = 0; i < input.size(); i++) {
+            for (int j = 0; j < input.get(i).length(); j++) {
+                if (input.get(i).charAt(j) == '.') {
+                    res[i][j] = -1;
+                    continue;
+                }
+                res[i][j] = Integer.parseInt("" + input.get(i).charAt(j));
+            }
+        }
+        return res;
+    }
+
     public static char[][] asCharMatrix(List<String> input) {
         char[][] res = new char[input.size()][];
         for (int i = 0; i < input.size(); i++) {
