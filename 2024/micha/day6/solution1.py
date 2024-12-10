@@ -31,10 +31,10 @@ def turn(symbol):
 
 
 def inRange(A, x, y):
-    return 0 <= y <= len(A) and 0 <= x <= len(A[0])
+    return 0 <= y < len(A) and 0 <= x < len(A[0])
 
 
-with open("2024/micha/day6/testInput.txt") as file:
+with open("2024/micha/day6/input.txt") as file:
     locations = file.readlines()
 
 A = []
@@ -46,9 +46,10 @@ for y, line in enumerate(locations):
         if field.symbol in {"^", ">", "<", "v"}:
             startPos = (x, y)
             dir = field.symbol
+            field.symbol = '.'
     A.append(v)
 
-cntr = 0
+cntr = 1
 x, y = startPos
 x_delta, y_delta = evalDirection(dir)
 inside = inRange(A, x + x_delta, y + y_delta)
@@ -56,10 +57,11 @@ inside = inRange(A, x + x_delta, y + y_delta)
 while inside:
     if not A[y + y_delta][x + x_delta].symbol == "#":
         while inside and A[y + y_delta][x + x_delta].symbol == ".":
-            A[y][x].visited = True
+            if not A[y][x].visited:
+                A[y][x].visited = True
+                cntr += 1
             x, y = x + x_delta, y + y_delta
             inside = inRange(A, x + x_delta, y + y_delta)
-    cntr += 1
     dir = turn(dir)
     x_delta, y_delta = evalDirection(dir)
 print(cntr)
