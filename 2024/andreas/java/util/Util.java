@@ -1,10 +1,16 @@
 package util;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 public class Util {
+
+    public static List<Long> toLongArrayList(String s) {
+        return new ArrayList<>(Arrays.stream(s.trim().split(" ")).map(Long::parseLong).toList());
+    }
 
     public static <K, V> void putOrAdd(Map<K, List<V>> map, K k, V v) {
         if (map.containsKey(k)) {
@@ -13,6 +19,15 @@ public class Util {
             map.put(k, new ArrayList<>(List.of(v)));
         }
     }
+
+    public static <K> void putOrInc(Map<K, BigInteger> map, K k, BigInteger v) {
+        if (map.containsKey(k)) {
+            map.put(k, map.get(k).add(v));
+        } else {
+            map.put(k, v);
+        }
+    }
+
     public static long[][] asMatrix(List<String> input) {
         long[][] res = new long[input.size()][];
         for (int i = 0; i < input.size(); i++) {
