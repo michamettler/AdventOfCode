@@ -101,4 +101,40 @@ public class Util {
         }
         return arr;
     }
+
+    public static <T> void padMatrix(T[][] src, T[][] dest, T padVal) {
+        for (int i = 0; i < dest.length; i++) {
+            for (int j = 0; j < dest[i].length; j++) {
+                if (i == 0 || j == 0 || i == dest.length - 1 || j == dest[i].length - 1) {
+                    dest[i][j] = padVal;
+                } else {
+                    dest[i][j] = src[i - 1][j - 1];
+                }
+            }
+        }
+    }
+
+    public static <T> void initialize(T[][] mat, T val) {
+        for (int i = 0; i < mat.length; i++) {
+            for (int j = 0; j < mat[i].length; j++) {
+                mat[i][j] = val;
+            }
+        }
+    }
+
+    public static void printBooleanMap(Boolean[][] mat) {
+        for (int i = 0; i < mat.length; i++) {
+            for (int j = 0; j < mat[i].length; j++) {
+                Boolean b = mat[i][j];
+                if (b) {
+                    System.out.print("T");
+                } else if (!b) {
+                    System.out.print("F");
+                } else {
+                    System.out.print("N");
+                }
+            }
+            System.out.println();
+        }
+    }
 }
