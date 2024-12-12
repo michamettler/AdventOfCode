@@ -1,47 +1,85 @@
-import { readGrid, neighbors } from '../util/load-csv.mjs';
+import { readGrid, neighbors, readInts, readFile } from '../util/load-csv.mjs';
 
 
 (async () => {
 
-    let input = await readGrid('./day10.txt')
-    console.log(part1(input))
-    console.log(part2(input))
+    let input = await readFile('./day11.txt')
+    let rocks = readInts(input, ' ')
+    console.log(part1(rocks))
+    rocks = readInts(input, ' ')
+    console.log(part2(rocks))
 
 })();
 
-function part1(grid) {
-    let sum = 0
-    grid = grid.filter((row) => row.length > 0)
+function part1(stones) {
+    console.log(stones)
+    for (let i = 0; i < 25; i++) {
+        let newarr = []
+        for (const stone of stones) {
+            if (stone == 0) {
+                newarr.push(1)
+            } else if (stone.toString().length % 2 == 0) {
+                const mid = Math.floor(stone.toString().length / 2); // Find the middle index
+                const part1 = stone.toString().slice(0, mid);
+                const part2 = stone.toString().slice(mid);
 
-    return sum
+                const result1 = parseInt(part1, 10) || 0; // Default to 0 if parseInt returns NaN
+                const result2 = parseInt(part2, 10) || 0;
+                newarr.push(result1)
+                newarr.push(result2)
+            } else {
+                newarr.push(stone * 2024)
+            }
+        }
+        stones = newarr
+    }
+
+
+    return stones.length
 }
 
 
-function part2(grid) {
+function part2(stonesstring) {
+    let stones = new Map()
+    stonesstring.forEach(element => {
+        stones.set(element, stonesstring.filter((el) => el === element).length)
+    });
+    console.log(stones)
+
+    for (let i = 0; i < 75; i++) {
+        stones = countStone(stones)
+    }
+
+    console.log(stones)
     let sum = 0
-    grid = grid.filter((row) => row.length > 0)
-    for (let y = 0; y < grid.length; y++) {
-        for (let x = 0; x < grid[y].length; x++) {
-            if (grid[y][x] === "0") {
-                let queue = [{ x, y }];
-
-                while (queue.length > 0) {
-                    const { x, y } = queue.shift();
-                    if (grid[y][x] === "9") {
-                        sum++;
-                        continue;
-                    }
-                    const possiblities = neighbors(grid, x, y).map(([x, y]) => ({ x, y }));
-                    let nextposition = possiblities.filter((field) => parseInt(grid[field.y][field.x]) === parseInt(grid[y][x]) + 1)
-
-                    for (const field of nextposition) {
-                        queue.push(field);
-                    }
-                }
-            }
-        }
+    for (const [stone, count] of stones.entries()) {
+        sum += count
     }
     return sum
+}
+
+function countStone(stones) {
+    const newStones = new Map;
+
+    for (const [stone, count] of stones.entries()) {
+        if (stone === 0) {
+            newStones.set(1, (newStones.get(1) || 0) + count)
+        } else if (stone.toString().length % 2 === 0) {
+            let stoneString = stone.toString()
+            const mid = Math.floor(stoneString.length / 2); // Find the middle index
+            const rh = parseInt(stoneString.slice(0, mid))
+            const lh = parseInt(stoneString.slice(mid))
+
+            newStones.set(lh, (newStones.get(lh) || 0) + count)
+            newStones.set(rh, (newStones.get(rh) || 0) + count)
+        } else {
+            let stoneInt = parseInt(stone)
+            const newStone = stoneInt * 2024;
+            newStones.set(newStone, (newStones.get(newStone) || 0) + count)
+        }
+    }
+
+    return newStones;
 }
 
 
