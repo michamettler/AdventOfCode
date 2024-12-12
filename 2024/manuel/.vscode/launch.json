@@ -67,5 +67,16 @@
             "program": "${workspaceFolder}/day11/day11.mjs",
             "cwd": "${workspaceFolder}/day11"
         }
+        ,
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "day 12",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/day12/day12.mjs",
+            "cwd": "${workspaceFolder}/day12"
+        }
     ]
 }

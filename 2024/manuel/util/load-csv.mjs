@@ -1,6 +1,29 @@
 import csv from 'csv-parser';
 import fs from 'fs';
 
+export function inBounds(p, input) {
+    const [x, y] = p;
+    if (x < 0 || y < 0 || x >= input.length || y >= input[0].length) {
+        return false;
+    }
+    return true;
+}
+
+export function getNeighbors(point) {
+    const [x, y] = point;
+    const ns = [];
+    for (const vect of [
+        [0, -1],
+        [0, 1],
+        [1, 0],
+        [-1, 0],
+    ]) {
+        let x1 = x + vect[0];
+        let y1 = y + vect[1];
+        ns.push([x1, y1]);
+    }
+    return ns;
+}
 export function readCsv(filePath) {
     return new Promise((resolve, reject) => {
         const results = [];
