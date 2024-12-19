@@ -88,6 +88,17 @@
             ],
             "program": "${workspaceFolder}/day14/day14.mjs",
             "cwd": "${workspaceFolder}/day14"
+        } ,
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "day 19",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/day19/day19.mjs",
+            "cwd": "${workspaceFolder}/day19"
         }
     ]
+    
 }
