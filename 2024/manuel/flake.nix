@@ -7,8 +7,7 @@
     let
       overlays = [
         (final: prev: rec {
-          nodejs = prev.nodejs_latest;
-          pnpm = prev.nodePackages.pnpm;
+          nodejs = prev.nodejs_22;
           yarn = (prev.yarn.override { inherit nodejs; });
         })
       ];
@@ -20,7 +19,7 @@
     {
       devShells = forEachSupportedSystem ({ pkgs }: {
         default = pkgs.mkShell {
-          packages = with pkgs; [ node2nix nodejs pnpm yarn ];
+          packages = with pkgs; [ node2nix nodejs yarn ];
         };
       });
     };
